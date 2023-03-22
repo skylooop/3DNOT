@@ -3,7 +3,8 @@ from dataclasses import dataclass
 import torch
 import numpy as np
 from torch.utils.data import Dataset, DataLoader
-from torchvision import transforms
+from torchvision import transforms, datasets
+
 
 test_3d_mnist = 'full_dataset_vectors.h5'
 hf = h5py.File(test_3d_mnist)
@@ -94,3 +95,30 @@ class MNIST3DNumberDataset(Dataset):
 
       sample = torch.Tensor(sample) / 255
       return sample
+    
+def make_3D(image):
+    n = 6
+    image_3D = (torch.ones(16, 16, 16) * image[0]).permute(1, 2, 0) 
+#     tresh = np.abs([-1.0]*n + list(np.linspace(-1.0, 1.0, 16-2*n)) + [1.0]*n)
+    tresh = torch.tensor([1.0]*n + [0.0]*(16-2*n) + [1.0]*n)
+    for i in range(16):
+        image_3D[..., i] = image_3D[..., i] > tresh[i]
+    return image_3D
+
+class MNIST3D(Dataset):
+    def __init__(self, number=2, path='data', train=True):
+        self.number = number
+        self.resize = transforms.Resize(16)
+        mnist2D = datasets.MNIST(path, train=train, download=True, transform=transforms.ToTensor())
+        self.data = mnist2D.data[mnist2D.targets == self.number]
+
+    def __len__(self):
+        return self.data.shape[0]
+
+    def __getitem__(self, idx):
+        out = self.data[idx].unsqueeze(0)
+        out = self.resize(out) / 255
+        out = make_3D(out)
+        out = torch.tensor(random_color(out)) / 255
+        return out.float()
+    

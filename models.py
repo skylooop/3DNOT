@@ -205,7 +205,7 @@ class UNet(nn.Module):
         x = self.up4(x, x1)
         logits = self.outc(x)
         return logits
-    
+
 
 def test_resnet():
     f_potential = ResNet_D(16, nc=3)
