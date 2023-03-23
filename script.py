@@ -2,10 +2,10 @@ from torch.utils.data import Dataset, DataLoader
 from torchvision import transforms
 import torch
 from tqdm import tqdm
-from utils import *
+from src.utils import *
 
 
-from dataset import MNIST3D
+from src.dataset import MNIST3D
 
 dataset_2 = MNIST3D(number=2)
 dataset_4 = MNIST3D(number=4)
@@ -17,7 +17,7 @@ sample_x_batch = next(iter(train_dataloader_2))
 sample_y_batch = next(iter(train_dataloader_4))
 print('Sample batch dimensions: ', sample_x_batch.shape)
 
-from models import ResNet_D, UNet
+from src.models import ResNet_D, UNet
 
 T_net = UNet(3, 3) # strong case
 f_net = ResNet_D(16, nc=3)

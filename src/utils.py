@@ -2,6 +2,8 @@ from matplotlib.colors import rgb2hex
 import matplotlib.pyplot as plt
 import numpy as np
 import torch
+from functools import partial
+from skimage import color
 
 def plot3d_static(x):
     img = x.reshape(3, 16, 16, 16)
@@ -37,3 +39,22 @@ def plot3d_static_batch(X, azim=10, elev=80):
         ax.elev = elev
         ax.axis('off')
     plt.show()
+
+
+def get_colored(imgs, thr = None):
+    # for flattened image
+    assert len(imgs.shape) == 2
+    init_shape = imgs.shape
+    imgs = torch.unsqueeze(imgs, dim=-1)
+
+    result = np.zeros((*imgs.shape, 3), float) 
+
+    seeds = torch.Tensor(np.random.uniform(size=(init_shape[0], 2)))
+
+    seeds = torch.broadcast_to(seeds, (*init_shape[::-1], 2))
+    seeds = torch.permute(seeds, [1, 0, 2])
+
+    result = torch.concat([seeds, imgs], dim=-1)
+
+    result = torch.Tensor(color.hsv2rgb(result))
+    return result
