@@ -16,7 +16,7 @@ def plot3d_static(x):
     ax.voxels(mask, facecolors=colors)
     ax.axis('off')
 #     ax.azim = 10
-#     ax.elev = 80
+#     ax.elev = 80  
     plt.show()
 
 def plot3d_static_batch(X, azim=10, elev=80):
