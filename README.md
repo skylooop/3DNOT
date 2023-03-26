@@ -13,11 +13,15 @@ The whole repo is based on beautiful [NOT paper](https://openreview.net/forum?id
 For base models, we took original [Unet](https://arxiv.org/abs/1505.04597) model and changed all `Conv` layers to `Conv3D`.
 ## Repository structure
 ------
-All python scripts are contained in `src` folder. Jupyter notebooks used for small experiments and research are located in `research` folder.
+All python scripts are contained in `src` folder. Jupyter notebooks used for small experiments and research are located in `research` folder. For training and see the resutls in cmd interface checkout `run.py` script
 
 ## Running commands
 ----
-To run training script 
+To run training script:
+```
+python run.py
+```
+Checkpoints and visulization of X and T(X) will be save in ```checkpoints``` directory
 ## Examples
 -----
 
