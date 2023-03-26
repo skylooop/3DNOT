@@ -24,6 +24,23 @@ python run.py
 Checkpoints and visulization of X and T(X) will be save in ```checkpoints``` directory
 ## Examples
 -----
+3D MNSIT Optimal transport from 2 to 4:
+
+X
+![X](images/2_24.jpeg)
+
+T(X)
+![T(x)](images/4_24.jpeg)
+
+
+3D MNSIT Optimal transport from 4 to 2:
+
+X
+![X_4](images/4_42.jpeg)
+
+T(X)
+![T(X)_2](images/2_42.jpeg)
+
 
 ## Installation (Using conda)
 To install all required dependencies, you can run
