@@ -20,7 +20,7 @@ python run.py
 ```
 Checkpoints and visulization of X and T(X) will be save in ```checkpoints``` directory
 ## Examples
-3D MNSIT Optimal transport from 2 to 4:
+3D MNIST Optimal transport between initial distribution of colored 2s to target distribution of 4s:
 
 X
 ![X](images/2_24.jpeg)
@@ -29,7 +29,7 @@ T(X)
 ![T(x)](images/4_24.jpeg)
 
 
-3D MNSIT Optimal transport from 4 to 2:
+Optimal transport in reverse:
 
 X
 ![X_4](images/4_42.jpeg)
