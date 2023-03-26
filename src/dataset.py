@@ -5,17 +5,6 @@ import numpy as np
 from torch.utils.data import Dataset, DataLoader
 from torchvision import transforms, datasets
 
-
-test_3d_mnist = 'full_dataset_vectors.h5'
-hf = h5py.File(test_3d_mnist)
-
-
-with h5py.File(test_3d_mnist) as dataset:
-    x_train = dataset["X_train"][:]
-    x_test = dataset["X_test"][:]
-    y_train = dataset["y_train"][:]
-    y_test = dataset["y_test"][:]
-
 @dataclass
 class data_config:
     threshold = 0.2
@@ -64,38 +53,6 @@ def random_color(V):
                     colored_image[2, x, y, z] = 0
     return colored_image
 
-class MNIST3DNumberDataset(Dataset):
-  def __init__(self, number=2, path='full_dataset_vectors.h5', train=True, transform=random_color):
-    self.number = number
-    with h5py.File(test_3d_mnist) as dataset:
-        if train:
-          x_data = dataset["X_train"][:]
-          y_data = dataset["y_train"][:]
-        else:
-          x_data = dataset["X_test"][:]
-          y_data = dataset["y_test"][:]
-    self.transform = transform
-    
-    data = []
-    for i in range(x_data.shape[0]):
-      x, y = x_data[i], y_data[i]
-      if y == self.number:
-        data.append(x_data[i])
-    self.data = np.array(data)
-  
-  def __len__(self):
-      return self.data.shape[0]
-
-  def __getitem__(self, idx):
-      sample = self.data[idx]
-      sample = sample.reshape(16, 16, 16)
-
-      if self.transform:
-          sample = self.transform(sample)
-
-      sample = torch.Tensor(sample) / 255
-      return sample
-    
 def make_3D(image):
     n = 6
     image_3D = (torch.ones(16, 16, 16) * image[0]).permute(1, 2, 0) 
@@ -104,6 +61,8 @@ def make_3D(image):
     for i in range(16):
         image_3D[..., i] = image_3D[..., i] > tresh[i]
     return image_3D
+
+from src.utils import get_colored_cat
 
 class MNIST3D(Dataset):
     def __init__(self, number=2, path='data', train=True):
@@ -119,6 +78,8 @@ class MNIST3D(Dataset):
         out = self.data[idx].unsqueeze(0)
         out = self.resize(out) / 255
         out = make_3D(out)
-        out = torch.tensor(random_color(out)) / 255
-        return out.float()
+        colored = get_colored_cat(torch.tensor(out.flatten()).unsqueeze(0))
+        # colored  = random_color(out) / 255
+        out = torch.tensor(colored)
+        return out.float().reshape(3, 16, 16, 16)
     
