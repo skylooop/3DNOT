@@ -9,21 +9,17 @@ The whole repo is based on beautiful [NOT paper](https://openreview.net/forum?id
 - [Installation](#install)
 - [Running commands](#running)
 ## NOT in 3D
-----
 For base models, we took original [Unet](https://arxiv.org/abs/1505.04597) model and changed all `Conv` layers to `Conv3D`.
 ## Repository structure
-------
 All python scripts are contained in `src` folder. Jupyter notebooks used for small experiments and research are located in `research` folder. For training and see the resutls in cmd interface checkout `run.py` script
 
 ## Running commands
-----
 To run training script:
 ```
 python run.py
 ```
 Checkpoints and visulization of X and T(X) will be save in ```checkpoints``` directory
 ## Examples
------
 3D MNSIT Optimal transport from 2 to 4:
 
 X
@@ -47,3 +43,6 @@ To install all required dependencies, you can run
 ```
 conda create --name 3DNOT --file requirements.txt
 ```
+
+## Credits
+Final project for Machine Learning course 2023 at Skoltech was done by Maksim Bobrin, Sergei Kholkin, Anastasia Batsheva, Artem Basharin.
