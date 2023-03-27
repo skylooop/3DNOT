@@ -106,7 +106,6 @@ def save_checkpoint_and_pics(T, f, step):
     
     sample_x = next(iter(train_dataloader_2))
 
-
     img = sample_x.reshape(-1, 3, 16, 16, 16)
 
     mask = img.to(torch.bool)
