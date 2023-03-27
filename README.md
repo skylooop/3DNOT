@@ -14,6 +14,10 @@ For base models, we took original [Unet](https://arxiv.org/abs/1505.04597) model
 Main code is contained in `src` folder. For training and results monitoring in cmd interface checkout `run.py` script.
 You can load checkpoint and validate it (via saving OT samples) through using `load_checkpoint.ipynb`
 
+## Checkpoints
+From 3D MNIST colored twos to 3D MNIST colred fours:  [google drive link](
+https://drive.google.com/file/d/1kFqCJafAmQVrDFUhWTRKioM8tUfPFB7h/view?usp=sharing)
+
 ## Running commands
 To run training script:
 ```
