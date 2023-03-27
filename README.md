@@ -11,7 +11,8 @@ The whole repo is based on beautiful [NOT paper](https://openreview.net/forum?id
 ## NOT in 3D
 For base models, we took original [Unet](https://arxiv.org/abs/1505.04597) model and changed all `Conv` layers to `Conv3D`.
 ## Repository structure
-All python scripts are contained in `src` folder. Jupyter notebooks used for small experiments and research are located in `research` folder. For training and see the resutls in cmd interface checkout `run.py` script
+Main code is contained in `src` folder. For training and results monitoring in cmd interface checkout `run.py` script.
+You can load checkpoint and validate it (via saving OT samples) through using `load_checkpoint.ipynb`
 
 ## Running commands
 To run training script:
@@ -20,6 +21,9 @@ python run.py
 ```
 Checkpoints and visulization of X and T(X) will be save in ```checkpoints``` directory
 ## Examples
+You can download checkpoint using this [google drive link](
+https://drive.google.com/file/d/1kFqCJafAmQVrDFUhWTRKioM8tUfPFB7h/view?usp=sharing) and get pics yourself by running `load_checkpoint.ipynb`
+
 3D MNIST Optimal transport between initial distribution of colored 2s to target distribution of 4s:
 
 X
