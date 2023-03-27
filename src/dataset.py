@@ -55,7 +55,7 @@ def random_color(V):
 
 def make_3D(image):
     n = 6
-    image_3D = (torch.ones(16, 16, 16) * image[0]).permute(1, 2, 0) 
+    image_3D = (torch.ones(16, 16, 16) * image[0]).permute(1, 2, 0)
 #     tresh = np.abs([-1.0]*n + list(np.linspace(-1.0, 1.0, 16-2*n)) + [1.0]*n)
     tresh = torch.tensor([1.0]*n + [0.0]*(16-2*n) + [1.0]*n)
     for i in range(16):

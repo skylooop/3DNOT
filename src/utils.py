@@ -106,6 +106,25 @@ def save_checkpoint_and_pics(T, f, step):
     
     sample_x = next(iter(train_dataloader_2))
 
+
+    img = sample_x.reshape(-1, 3, 16, 16, 16)
+
+    mask = img.to(torch.bool)
+    mask = mask[:, 0] | mask[:, 1] | mask[:, 2]
+
+    n = sample_x.shape[0]
+    fig = plt.figure(figsize=(15, 3))
+    for i, x in enumerate(sample_x):
+        colors = np.array([rgb2hex(rgb) for rgb in x.numpy().reshape(3, -1).T])
+        colors = colors.reshape(*img.shape[2:])
+
+        ax = fig.add_subplot(100+10*n+1+i, projection='3d')
+        ax.voxels(mask[i], facecolors=colors)
+        ax.axis('off')
+
+    plt.savefig(os.path.join(path_name, 'before_transport.png'))
+
+
     T_x = T(sample_x).detach().cpu()
 
     threshold = torch.nn.Threshold(0.2, 0, inplace=False)
@@ -126,6 +145,6 @@ def save_checkpoint_and_pics(T, f, step):
         ax.voxels(mask[i], facecolors=colors)
         ax.axis('off')
 
-    plt.savefig(os.path.join(path_name, 'transport_res.png'))
+    plt.savefig(os.path.join(path_name, 'after_transport.png'))
     torch.save(T.state_dict(), os.path.join(path_name, f'T_checkpoint_step_{step}.pth'))
     torch.save(f.state_dict(), os.path.join(path_name, f'f_checkpoint_step_{step}.pth'))

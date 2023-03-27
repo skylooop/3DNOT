@@ -8,8 +8,6 @@ def make_tensor_dataloader(dataloader):
     tensors = []
     for i, sample in tqdm(enumerate(iter(dataloader))):
         tensors.append(sample)
-        if i > 10:
-            break
     batch_size = tensors[0].shape[0]
     tensors = torch.cat(tensors, dim=0)
     return DataLoader(tensors, batch_size=batch_size, shuffle=True)
@@ -70,7 +68,7 @@ COST = sq_cost
 
 print('Cost(X, Y) shape', COST(sample_x_batch, T_x).shape)
 
-T_ITERS = 5
+T_ITERS = 10
 MAX_STEPS = 10000 + 1
 
 T = UNet(3, 3) # strong case
